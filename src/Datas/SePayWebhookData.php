@@ -1,4 +1,3 @@
-
 <?php
 
 namespace SePay\SePay\Datas;
@@ -6,7 +5,7 @@ namespace SePay\SePay\Datas;
 class SePayWebhookData
 {
     /** ID giao dịch trên SePay: 228478 */
-    public number $id;
+    public int $id;
 
     /** Brand name của ngân hàng: 'MBBank' */
     public string $gateway;
@@ -17,10 +16,10 @@ class SePayWebhookData
     /** Số tài khoản ngân hàng: '0359123123' */
     public string $accountNumber;
 
-    /** Tài khoản ngân hàng phụ (tài khoản định danh): NULL */
-    public any $subAccount;
+    /** Tài khoản ngân hàng phụ (tài khoản định danh) */
+    public ?string $subAccount = null;
 
-    /** Mã code thanh toán (sepay tự nhận diện dựa vào cấu hình tại Công ty -> Cấu hình chung): NULL */
+    /** Mã code thanh toán (sepay tự nhận diện dựa vào cấu hình tại Công ty -> Cấu hình chung) */
     public ?string $code = null;
 
     /** Nội dung chuyển khoản: 'SEPAY123123' */
@@ -33,11 +32,10 @@ class SePayWebhookData
     public ?string $description = null;
 
     /** Số tiền giao dịch: 50000 */
-    public number $transferAmount;
+    public int $transferAmount;
 
-    /** Ex: NULL */
     public ?string $referenceCode = null;
 
     /** Số dư tài khoản (lũy kế): 356489 */
-    public number $accumulated;
+    public int $accumulated;
 }
