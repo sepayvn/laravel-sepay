@@ -11,6 +11,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use SePay\SePay\Datas\SePayWebhookData;
+use SePay\SePay\Events\SePayWebhookEvent;
 use SePay\SePay\Models\SePayTransaction;
 use SePay\SePay\Notifications\SePayTopUpSuccessNotification;
 
@@ -58,6 +59,7 @@ class SePayController extends Controller
         $model->referenceCode = $sePayWebhookData->referenceCode;
         $model->save();
 
+        event(new SePayWebhookEvent($sePayWebhookData));
         $user->notify(new SePayTopUpSuccessNotification($model->transferAmount));
 
         return response()->noContent();
