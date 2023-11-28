@@ -60,7 +60,7 @@ class SePayController extends Controller
         $model->save();
 
         event(new SePayWebhookEvent($sePayWebhookData));
-        $user->notify(new SePayTopUpSuccessNotification($model->transferAmount));
+        $user->notify(new SePayTopUpSuccessNotification($sePayWebhookData));
 
         return response()->noContent();
     }
