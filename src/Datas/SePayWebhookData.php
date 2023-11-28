@@ -2,7 +2,9 @@
 
 namespace SePay\SePay\Datas;
 
-class SePayWebhookData
+use Spatie\LaravelData\Data;
+
+class SePayWebhookData extends Data
 {
     /** ID giao dịch trên SePay: 228478 */
     public int $id;
