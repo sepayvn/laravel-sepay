@@ -2,9 +2,9 @@
 
 namespace SePay\SePay;
 
+use SePay\SePay\Commands\SePayCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use SePay\SePay\Commands\SePayCommand;
 
 class SePayServiceProvider extends PackageServiceProvider
 {
