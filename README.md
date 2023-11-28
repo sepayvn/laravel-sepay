@@ -11,14 +11,14 @@ composer require sepayvn/laravel-sepay
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-sepay-migrations"
+php artisan vendor:publish --tag="sepay-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-sepay-config"
+php artisan vendor:publish --tag="sepay-config"
 ```
 
 This is the contents of the published config file:
@@ -31,7 +31,7 @@ return [
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag="laravel-sepay-views"
+php artisan vendor:publish --tag="sepay-views"
 ```
 
 ## Usage
@@ -61,8 +61,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [SePay](https://github.com/sepayvn)
-- [All Contributors](../../contributors)
+-   [SePay](https://github.com/sepayvn)
+-   [All Contributors](../../contributors)
 
 ## License
 

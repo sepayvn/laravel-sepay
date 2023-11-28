@@ -19,7 +19,7 @@ class SePayServiceProvider extends PackageServiceProvider
             ->name('laravel-sepay')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_laravel-sepay_table')
+            ->hasMigration('create_sepay_table')
             ->hasCommand(SePayCommand::class);
     }
 }
