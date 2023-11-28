@@ -2,14 +2,17 @@
 
 namespace SePay\SePay\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use SePay\SePay\Datas\SePayWebhookData;
+use SePay\SePay\Models\SePayTransaction;
 
 class SePayController extends Controller
 {
@@ -35,34 +38,29 @@ class SePayController extends Controller
             // Lock acquired after waiting a maximum of 5 seconds...
 
             throw_if(
-                BankTransaction::query()->whereId($id)->exists(),
-                CommonService::throwMessage('transaction này đã thực hiện')
+                SePayTransaction::query()->whereId($id)->exists(),
+                ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
             );
             // Lấy ra F.... là id user
             preg_match('/\bF([0-9])+/', $sePayWebhookData->content, $matches);
-            throw_if(! isset($matches[0]), CommonService::throwMessage('không tìm thấy F....'));
+            throw_if(! isset($matches[0]), ValidationException::withMessages(['message' => ['không tìm thấy F....']]));
             // Lấy user id ex:100692
             $userId = Str::replace('F', '', $matches[0]);
 
-            $user = User::query()->whereId($userId)->firstOrFail();
+            $user = User::query()->where('id', $userId)->firstOrFail();
 
-            $usdRate = VpsSettings::make()->usd_rate;
-
-            $model = new BankTransaction();
-            $model->id = $id;
-            $model->user_id = $user->id;
-            $model->amount = $sePayWebhookData->transferAmount;
-            $model->description = $sePayWebhookData->description ?: '';
+            $model = new SePayTransaction();
+            $model->gateway = $sePayWebhookData->gateway;
+            $model->transactionDate = $sePayWebhookData->transactionDate;
+            $model->accountNumber = $sePayWebhookData->accountNumber;
+            $model->subAccount = $sePayWebhookData->subAccount;
+            $model->code = $sePayWebhookData->code;
+            $model->content = $sePayWebhookData->content;
+            $model->transferType = $sePayWebhookData->transferType;
+            $model->description = $sePayWebhookData->description;
+            $model->transferAmount = $sePayWebhookData->transferAmount;
+            $model->referenceCode = $sePayWebhookData->referenceCode;
             $model->save();
-
-            $user->debit(
-                (int) round($model->amount * 100 / $usdRate),
-                "Topup from {$sePayWebhookData->gateway}: ".$model->amount.', USD Rate: '.$usdRate,
-                [
-                    'gateway' => $sePayWebhookData->gateway,
-                    'rate' => $usdRate,
-                ]
-            );
 
             $user->notify(new SePayTopUpSuccessNotification($model->amount));
 
