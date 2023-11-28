@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use SePay\SePay\Datas\SePayWebhookData;
 
 class SePayTopUpSuccessNotification extends Notification implements ShouldQueue
 {
@@ -15,10 +16,8 @@ class SePayTopUpSuccessNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(
-        public int|string $amount
-    ) {
-        //
+    public function __construct(public SePayWebhookData $sePayWebhookData)
+    {
     }
 
     /**
@@ -40,7 +39,7 @@ class SePayTopUpSuccessNotification extends Notification implements ShouldQueue
             ->subject(__('Deposit successful!'))
             ->greeting(__('Deposit successful!'))
             ->line(
-                view('emails.sepay-topup-success', ['amount' => $this->amount])
+                view('sepay::emails.sepay-topup-success', ['amount' => $this->sePayWebhookData->transferAmount])
             )
             ->action(__('View TopUp History'), url('/user/billing'))
             ->line(__('Thank you for using our service!'));
