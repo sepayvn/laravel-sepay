@@ -37,7 +37,7 @@ class SePayTopUpSuccessNotification extends Notification implements ShouldQueue
     public function toMail(User $user): MailMessage
     {
         return (new MailMessage)
-            ->subject(config('app.name').' '.__('Deposit successful!'))
+            ->subject(__('Deposit successful!'))
             ->greeting(__('Deposit successful!'))
             ->line(
                 view('emails.sepay-topup-success', ['amount' => $this->amount])
