@@ -3,6 +3,7 @@
 namespace SePay\SePay\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use SePay\SePay\Datas\SePayWebhookData;
 use SePay\SePay\Models\SePayTransaction;
+use SePay\SePay\Notifications\SePayTopUpSuccessNotification;
 
 class SePayController extends Controller
 {
@@ -41,12 +43,13 @@ class SePayController extends Controller
                 SePayTransaction::query()->whereId($id)->exists(),
                 ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
             );
+
             // Lấy ra F.... là id user
             preg_match('/\bF([0-9])+/', $sePayWebhookData->content, $matches);
             throw_if(! isset($matches[0]), ValidationException::withMessages(['message' => ['không tìm thấy F....']]));
+
             // Lấy user id ex:100692
             $userId = Str::replace('F', '', $matches[0]);
-
             $user = User::query()->where('id', $userId)->firstOrFail();
 
             $model = new SePayTransaction();
@@ -62,16 +65,14 @@ class SePayController extends Controller
             $model->referenceCode = $sePayWebhookData->referenceCode;
             $model->save();
 
-            $user->notify(new SePayTopUpSuccessNotification($model->amount));
+            $user->notify(new SePayTopUpSuccessNotification($model->transferAmount));
 
             return response()->noContent();
-        } catch (LockTimeoutException $e) {
-            return response('', 400);
+        } catch (LockTimeoutException) {
+            return response()->noContent(400);
         } finally {
             $lock?->release();
         }
-
-        return response('No lock acquired', 400);
     }
 
     /**
