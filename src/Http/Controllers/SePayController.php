@@ -3,13 +3,11 @@
 namespace SePay\SePay\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use SePay\SePay\Datas\SePayWebhookData;
@@ -32,47 +30,36 @@ class SePayController extends Controller
             ValidationException::withMessages(['message' => ['Invalid Token']])
         );
 
-        $id = strval('SePay_'.$sePayWebhookData->id);
-        $lock = Cache::lock($id, 30);
+        throw_if(
+            SePayTransaction::query()->whereId($sePayWebhookData->id)->exists(),
+            ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
+        );
 
-        try {
-            $lock->block(5);
-            // Lock acquired after waiting a maximum of 5 seconds...
+        // Lấy ra F.... là id user
+        preg_match('/\bF([0-9])+/', $sePayWebhookData->content, $matches);
+        throw_if(! isset($matches[0]), ValidationException::withMessages(['message' => ['không tìm thấy F....']]));
 
-            throw_if(
-                SePayTransaction::query()->whereId($id)->exists(),
-                ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
-            );
+        // Lấy user id ex:123123
+        $userId = Str::replace('F', '', $matches[0]);
+        $user = User::query()->where('id', $userId)->firstOrFail();
 
-            // Lấy ra F.... là id user
-            preg_match('/\bF([0-9])+/', $sePayWebhookData->content, $matches);
-            throw_if(! isset($matches[0]), ValidationException::withMessages(['message' => ['không tìm thấy F....']]));
+        $model = new SePayTransaction();
+        $model->id = $sePayWebhookData->id;
+        $model->gateway = $sePayWebhookData->gateway;
+        $model->transactionDate = $sePayWebhookData->transactionDate;
+        $model->accountNumber = $sePayWebhookData->accountNumber;
+        $model->subAccount = $sePayWebhookData->subAccount;
+        $model->code = $sePayWebhookData->code;
+        $model->content = $sePayWebhookData->content;
+        $model->transferType = $sePayWebhookData->transferType;
+        $model->description = $sePayWebhookData->description;
+        $model->transferAmount = $sePayWebhookData->transferAmount;
+        $model->referenceCode = $sePayWebhookData->referenceCode;
+        $model->save();
 
-            // Lấy user id ex:100692
-            $userId = Str::replace('F', '', $matches[0]);
-            $user = User::query()->where('id', $userId)->firstOrFail();
+        $user->notify(new SePayTopUpSuccessNotification($model->transferAmount));
 
-            $model = new SePayTransaction();
-            $model->gateway = $sePayWebhookData->gateway;
-            $model->transactionDate = $sePayWebhookData->transactionDate;
-            $model->accountNumber = $sePayWebhookData->accountNumber;
-            $model->subAccount = $sePayWebhookData->subAccount;
-            $model->code = $sePayWebhookData->code;
-            $model->content = $sePayWebhookData->content;
-            $model->transferType = $sePayWebhookData->transferType;
-            $model->description = $sePayWebhookData->description;
-            $model->transferAmount = $sePayWebhookData->transferAmount;
-            $model->referenceCode = $sePayWebhookData->referenceCode;
-            $model->save();
-
-            $user->notify(new SePayTopUpSuccessNotification($model->transferAmount));
-
-            return response()->noContent();
-        } catch (LockTimeoutException) {
-            return response()->noContent(400);
-        } finally {
-            $lock?->release();
-        }
+        return response()->noContent();
     }
 
     /**
