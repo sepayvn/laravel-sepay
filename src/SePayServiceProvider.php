@@ -2,7 +2,6 @@
 
 namespace SePay\SePay;
 
-use SePay\SePay\Commands\SePayCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,8 +17,8 @@ class SePayServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-sepay')
             ->hasConfigFile()
+            ->hasRoute('api')
             ->hasViews()
-            ->hasMigration('create_laravel-sepay_table')
-            ->hasCommand(SePayCommand::class);
+            ->hasMigration('create_sepay_table');
     }
 }
