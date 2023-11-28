@@ -59,7 +59,7 @@ class SePayController extends Controller
         $model->referenceCode = $sePayWebhookData->referenceCode;
         $model->save();
 
-        event(new SePayWebhookEvent($sePayWebhookData));
+        event(new SePayWebhookEvent($user, $sePayWebhookData));
         $user->notify(new SePayTopUpSuccessNotification($sePayWebhookData));
 
         return response()->noContent();

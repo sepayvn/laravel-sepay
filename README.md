@@ -25,6 +25,8 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'webhook_token' => env('SEPAY_WEBHOOK_TOKEN'),
+    'pattern' => env('SEPAY_MATCH_PATTERN', 'SE'),
 ];
 ```
 
@@ -36,9 +38,49 @@ php artisan vendor:publish --tag="sepay-views"
 
 ## Usage
 
+Tạo SePayWebhookListener
+
+```bash
+php artisan make:listener SePayWebhookListener
+```
+
 ```php
-$sePay = new SePay\SePay();
-echo $sePay->echoPhrase('Hello, SePay!');
+<?php
+
+namespace App\Listeners;
+
+use SePay\SePay\Events\SePayWebhookEvent;
+
+class SePayWebhookListener
+{
+    /**
+     * Create the event listener.
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     */
+    public function handle(SePayWebhookEvent $event): void
+    {
+        // Xử lý nạp tiền / rút tiền
+    }
+}
+
+```
+
+Đăng ký SePayWebhookListener vào app/Providers/EventServiceProvider.php
+
+```php
+    protected $listen = [
+        ...
+        \SePay\SePay\Events\SePayWebhookEvent::class => [
+            \App\Listeners\SePayWebhookListener::class,
+        ],
+    ];
 ```
 
 ## Testing
