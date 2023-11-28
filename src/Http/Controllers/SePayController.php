@@ -36,11 +36,12 @@ class SePayController extends Controller
         );
 
         // Lấy ra F.... là id user
-        preg_match('/\bF([0-9])+/', $sePayWebhookData->content, $matches);
+        $pattern = '/\b'.config('sepay.pattern').'([0-9])+/';
+        preg_match($pattern, $sePayWebhookData->content, $matches);
         throw_if(! isset($matches[0]), ValidationException::withMessages(['message' => ['không tìm thấy F....']]));
 
         // Lấy user id ex:123123
-        $userId = Str::replace('F', '', $matches[0]);
+        $userId = Str::replace(config('sepay.pattern'), '', $matches[0]);
         $user = User::query()->where('id', $userId)->firstOrFail();
 
         $model = new SePayTransaction();
