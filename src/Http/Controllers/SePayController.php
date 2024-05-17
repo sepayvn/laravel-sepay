@@ -13,7 +13,6 @@ use Illuminate\Validation\ValidationException;
 use SePay\SePay\Datas\SePayWebhookData;
 use SePay\SePay\Events\SePayWebhookEvent;
 use SePay\SePay\Models\SePayTransaction;
-use SePay\SePay\Notifications\SePayTopUpSuccessNotification;
 
 class SePayController extends Controller
 {
@@ -36,15 +35,6 @@ class SePayController extends Controller
             ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
         );
 
-        // Lấy ra F.... là id user
-        $pattern = '/\b'.config('sepay.pattern').'([0-9])+/';
-        preg_match($pattern, $sePayWebhookData->content, $matches);
-        throw_if(! isset($matches[0]), ValidationException::withMessages(['message' => ['không tìm thấy F....']]));
-
-        // Lấy user id ex:123123
-        $userId = Str::replace(config('sepay.pattern'), '', $matches[0]);
-        $user = User::query()->where('id', $userId)->firstOrFail();
-
         $model = new SePayTransaction();
         $model->id = $sePayWebhookData->id;
         $model->gateway = $sePayWebhookData->gateway;
@@ -59,8 +49,15 @@ class SePayController extends Controller
         $model->referenceCode = $sePayWebhookData->referenceCode;
         $model->save();
 
-        event(new SePayWebhookEvent($user, $sePayWebhookData));
-        $user->notify(new SePayTopUpSuccessNotification($sePayWebhookData));
+        // Lấy ra user id hoặc order id ví dụ: SE_123456, SE_abcd-efgh
+        $pattern = '/\b'.config('sepay.pattern').'([a-zA-Z0-9-_])+/';
+        preg_match($pattern, $sePayWebhookData->content, $matches);
+
+        if (isset($matches[0])) {
+            // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
+            $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
+            event(new SePayWebhookEvent($info, $sePayWebhookData));
+        }
 
         return response()->noContent();
     }

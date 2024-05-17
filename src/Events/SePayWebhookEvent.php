@@ -2,7 +2,6 @@
 
 namespace SePay\SePay\Events;
 
-use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -16,7 +15,7 @@ class SePayWebhookEvent
      * Create a new event instance.
      */
     public function __construct(
-        public User $user,
+        public string $info,
         public SePayWebhookData $sePayWebhookData
     ) {
     }
