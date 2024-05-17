@@ -82,16 +82,32 @@ class SePayWebhookListener
 }
 ```
 
-Đăng ký SePayWebhookListener vào app/Providers/EventServiceProvider.php
+-   Đối với Laravel 10 trở xuống
 
-```php
-    protected $listen = [
-        ...
-        \SePay\SePay\Events\SePayWebhookEvent::class => [
+    Đăng ký SePayWebhookListener vào app/Providers/EventServiceProvider.php
+
+    ```php
+        protected $listen = [
+            ...
+            \SePay\SePay\Events\SePayWebhookEvent::class => [
+                \App\Listeners\SePayWebhookListener::class,
+            ],
+        ];
+    ```
+
+-   Đối với Laravel 11
+
+    Đăng ký SePayWebhookListener vào phương thức `boot` trong `app/Providers/AppServiceProvider.php`
+
+    ```php
+    public function boot(): void
+    {
+        \Illuminate\Support\Facades\Event::listen(
+            \SePay\SePay\Events\SePayWebhookEvent::class,
             \App\Listeners\SePayWebhookListener::class,
-        ],
-    ];
-```
+        );
+    }
+    ```
 
 ## Testing
 
