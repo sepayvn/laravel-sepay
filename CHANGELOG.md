@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sepay` will be documented in this file.
 
+## v1.1.3 - 2024-05-22
+
+**Full Changelog**: https://github.com/sepayvn/laravel-sepay/compare/v1.1.2...v1.1.3
+
 ## v1.1.2 - 2024-05-22
 
 **Full Changelog**: https://github.com/sepayvn/laravel-sepay/compare/v1.1.1...v1.1.2
