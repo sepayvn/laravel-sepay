@@ -42,7 +42,7 @@ class SePayController extends Controller
             $request->string('description')->value(),
             $request->integer('transferAmount'),
             $request->string('referenceCode')->value(),
-            $request->integer('transferAmount'),
+            $request->integer('accumulated')
         );
 
         throw_if(
