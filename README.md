@@ -71,7 +71,7 @@ class SePayWebhookListener
         // Xử lý tiền vào tài khoản
         if ($event->sePayWebhookData->transferType === 'in') {
             // Trường hợp $info là user id
-            $user = User::query()->where('id', $$event->info)->first();
+            $user = User::query()->where('id', $event->info)->first();
             if ($user instanceof User) {
                 $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
             }
