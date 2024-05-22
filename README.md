@@ -95,9 +95,11 @@ class SePayWebhookListener
         ];
     ```
 
--   Đối với Laravel 11
+-   Đối với Laravel 11, `SePayWebhookListener` đặt ở trong thư mục app/Listeners thì Laravel
+    sẽ tự động gắn với `SePayWebhookEvent` bạn không cần phải đăng ký với Provider, tránh bị gọi 2 lần.
 
-    Đăng ký SePayWebhookListener vào phương thức `boot` trong `app/Providers/AppServiceProvider.php`
+    Nếu bạn kiểm tra thấy `SePayWebhookListener` chưa lắng nghe `SePayWebhookEvent` thì bạn có thể làm như sau:
+    vào phương thức `boot` trong `app/Providers/AppServiceProvider.php`
 
     ```php
     public function boot(): void
