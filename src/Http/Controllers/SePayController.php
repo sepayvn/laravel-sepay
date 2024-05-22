@@ -21,13 +21,28 @@ class SePayController extends Controller
      *
      * @throws BindingResolutionException
      */
-    public function webhook(Request $request, SePayWebhookData $sePayWebhookData)
+    public function webhook(Request $request)
     {
         $token = $this->bearerToken($request);
 
         throw_if(
             config('sepay.webhook_token') && $token !== config('sepay.webhook_token'),
             ValidationException::withMessages(['message' => ['Invalid Token']])
+        );
+
+        $sePayWebhookData = new SePayWebhookData(
+            $request->integer('id'),
+            $request->string('gateway')->value(),
+            $request->string('transactionDate')->value(),
+            $request->string('accountNumber')->value(),
+            $request->string('subAccount')->value(),
+            $request->string('code')->value(),
+            $request->string('content')->value(),
+            $request->string('transferType')->value(),
+            $request->string('description')->value(),
+            $request->integer('transferAmount'),
+            $request->string('referenceCode')->value(),
+            $request->integer('transferAmount'),
         );
 
         throw_if(
