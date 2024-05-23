@@ -2,23 +2,32 @@
 
 namespace SePay\SePay;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-class SePayServiceProvider extends PackageServiceProvider
+class SePayServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    /**
+     * Bootstrap any package services.
+     */
+    public function boot(): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
-        $package
-            ->name('laravel-sepay')
-            ->hasConfigFile()
-            ->hasRoute('api')
-            ->hasViews()
-            ->hasMigration('create_sepay_table');
+        $this->publishes([
+            __DIR__.'/../config/sepay.php' => config_path('sepay.php'),
+        ]);
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'courier');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        $this->publishesMigrations([
+            __DIR__.'/../database/migrations' => database_path('migrations'),
+        ]);
+    }
+
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/sepay.php', 'sepay'
+        );
     }
 }
