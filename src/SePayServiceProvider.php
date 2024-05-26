@@ -24,7 +24,7 @@ class SePayServiceProvider extends ServiceProvider
             ], 'sepay-config');
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/sepay'),
-            ], 'sepay-config');
+            ], 'sepay-views');
             $this->publishes([
                 __DIR__.'/../database/migrations' => database_path('migrations'),
             ], 'sepay-migrations');
