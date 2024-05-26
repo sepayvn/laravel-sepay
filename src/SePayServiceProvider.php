@@ -21,12 +21,9 @@ class SePayServiceProvider extends ServiceProvider
             ], 'sepay-config');
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/sepay'),
-            ], 'sepay-config');
-            $this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/sepay'),
             ], 'sepay-views');
             $this->publishes([
-                __DIR__.'/../database/migrations' => database_path('migrations'),
+                __DIR__.'/../database/migrations/create_sepay_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_sepay_table.php'),
             ], 'sepay-migrations');
         }
     }
