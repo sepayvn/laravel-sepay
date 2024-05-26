@@ -11,14 +11,24 @@ class SePayServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->publishes([
-            __DIR__.'/../config/sepay.php' => config_path('sepay.php'),
-        ]);
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'courier');
+        $this->mergeConfigFrom(__DIR__.'/../config/sepay.php', 'sepay');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'sepay');
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
-        $this->publishesMigrations([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
-        ]);
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/sepay.php' => config_path('sepay.php'),
+            ], 'sepay-config');
+            $this->publishes([
+                __DIR__.'/../resources/views' => resource_path('views/vendor/sepay'),
+            ], 'sepay-config');
+            $this->publishes([
+                __DIR__.'/../resources/views' => resource_path('views/vendor/sepay'),
+            ], 'sepay-config');
+            $this->publishes([
+                __DIR__.'/../database/migrations' => database_path('migrations'),
+            ], 'sepay-migrations');
+        }
     }
 
     /**
