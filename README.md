@@ -111,6 +111,25 @@ class SePayWebhookListener
     }
     ```
 
+## Webhook
+
+1. Truy cập [SePay Webhooks](https://my.sepay.vn/webhooks)
+2. Bấm nút `Thêm Webhook` ở góc trên bên phải
+3. Các cần điền thì bạn hãy điền, riêng các mục sau cần lưu ý
+
+    ![](<images/Screenshot 2024-05-27 at 18.50.00.png>)
+
+    1. thay `domain.com` thành tên miền của bạn
+    2. Kiểu chứng thực: là Api Key
+    3. API Key: nhập vào 1 dãy bí mật ngẫu nhiên gồm chữ và số (không có dấu như hình ví dụ nhé)
+
+4. Sửa file `.env` trong ứng dụng Laravel của bạn thành như sau
+
+    ![](<images/Screenshot 2024-05-27 at 19.33.19.png>)
+
+    1. `SEPAY_WEBHOOK_TOKEN` - Là API Key nhập ở bước 3.3 ở trên
+    2. `SEPAY_MATCH_PATTERN` - Mặc định là `SE` bạn có thể sửa cho phù hợp với ứng dụng của bạn
+
 ## Testing
 
 ```bash
