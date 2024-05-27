@@ -88,7 +88,7 @@ class SePayWebhookListener
 }
 ```
 
--   Đối với Laravel 10 trở xuống
+-   Đối với Laravel 11 trở xuống (7, 8, 9, 10)
 
     Đăng ký SePayWebhookListener vào app/Providers/EventServiceProvider.php
 
