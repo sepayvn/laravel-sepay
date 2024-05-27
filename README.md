@@ -8,6 +8,12 @@ You can install the package via composer:
 composer require sepayvn/laravel-sepay
 ```
 
+Phiên bản dành cho Laravel 7, 8 và PHP 8.0 trở lên
+
+```bash
+composer require "sepayvn/laravel-sepay:dev-lite"
+```
+
 You can publish and run the migrations with:
 
 ```bash
