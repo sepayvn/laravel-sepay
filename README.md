@@ -142,6 +142,13 @@ class SePayWebhookListener
 composer test
 ```
 
+# Ủng hộ nhà phát triển
+
+Bạn có thể hỗ trợ nhà phát triển gói này bằng cách sử dụng những dịch vụ sau:
+
+-   [FlashPanel: Effortless Server Management](https://flashpanel.io)
+-   [FlashShop: Nền tảng mua bán sản phẩm số #1 tại Việt Nam](https://flashshop.io)
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
