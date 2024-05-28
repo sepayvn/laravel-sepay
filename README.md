@@ -136,6 +136,30 @@ class SePayWebhookListener
     1. `SEPAY_WEBHOOK_TOKEN` - Là API Key nhập ở bước 3.3 ở trên
     2. `SEPAY_MATCH_PATTERN` - Mặc định là `SE` bạn có thể sửa cho phù hợp với ứng dụng của bạn
 
+## Kiểm tra với Postman
+
+Bấm import trên postman và dán đoạn mã dưới đây vào
+
+```bash
+curl --location 'https://domain.com/api/sepay/webhook' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer Apikey đây_là_khóa_bí_mật' \
+--data '{
+    "gateway": "MBBank",
+    "transactionDate": "2024-05-25 21:11:02",
+    "accountNumber": "0359123456",
+    "subAccount": null,
+    "code": null,
+    "content": "Thanh toan QR SE123456",
+    "transferType": "out",
+    "description": "Thanh toan QR SE123456",
+    "transferAmount": 1700000,
+    "referenceCode": "FT123456789",
+    "accumulated": 0,
+    "id": 123456
+}'
+```
+
 ## Testing
 
 ```bash
