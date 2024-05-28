@@ -24,14 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "SePay\\SePay\\": "src/",
-            "SePay\\SePay\\Database\\Factories\\": "database/factories/"
+            "SePay\\SePay\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SePay\\SePay\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "SePay\\SePay\\Tests\\": "tests/"
         }
     },
     "scripts": {
