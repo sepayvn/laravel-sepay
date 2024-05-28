@@ -31,7 +31,7 @@ class SePayController extends Controller
         );
 
         $sePayWebhookData = new SePayWebhookData(
-            $request->integer('id'),
+            intval($request->input('id')),
             $request->string('gateway')->value(),
             $request->string('transactionDate')->value(),
             $request->string('accountNumber')->value(),
@@ -40,9 +40,9 @@ class SePayController extends Controller
             $request->string('content')->value(),
             $request->string('transferType')->value(),
             $request->string('description')->value(),
-            $request->integer('transferAmount'),
+            intval($request->input('transferAmount')),
             $request->string('referenceCode')->value(),
-            $request->integer('accumulated')
+            intval($request->input('accumulated'))
         );
 
         throw_if(
