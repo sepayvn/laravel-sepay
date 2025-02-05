@@ -2,6 +2,4 @@
 
 namespace SePay\SePay;
 
-class SePay
-{
-}
+class SePay {}

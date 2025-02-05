@@ -50,7 +50,7 @@ class SePayController extends Controller
             ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
         );
 
-        $model = new SePayTransaction();
+        $model = new SePayTransaction;
         $model->id = $sePayWebhookData->id;
         $model->gateway = $sePayWebhookData->gateway;
         $model->transactionDate = $sePayWebhookData->transactionDate;

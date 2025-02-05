@@ -17,8 +17,7 @@ class SePayWebhookEvent
     public function __construct(
         public string $info,
         public SePayWebhookData $sePayWebhookData
-    ) {
-    }
+    ) {}
 
     /**
      * Get the channels the event should broadcast on.
