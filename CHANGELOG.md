@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-sepay` will be documented in this file.
 
+## dynamic topup history link - 2025-02-05
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/sepayvn/laravel-sepay/pull/9
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/sepayvn/laravel-sepay/pull/10
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/sepayvn/laravel-sepay/pull/11
+
+**Full Changelog**: https://github.com/sepayvn/laravel-sepay/compare/v1.2.0...v1.2.1
+
 ## php 8.0, laravel 9 - 2024-05-22
 
 **Full Changelog**: https://github.com/sepayvn/laravel-sepay/compare/v1.1.3...v1.2.0
