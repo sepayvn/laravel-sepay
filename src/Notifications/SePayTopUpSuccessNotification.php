@@ -16,9 +16,10 @@ class SePayTopUpSuccessNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public SePayWebhookData $sePayWebhookData)
-    {
-    }
+    public function __construct(
+        public SePayWebhookData $sePayWebhookData,
+        public string $topupHistoryLink = '',
+    ) {}
 
     /**
      * Get the notification's delivery channels.
@@ -41,7 +42,7 @@ class SePayTopUpSuccessNotification extends Notification implements ShouldQueue
             ->line(
                 view('sepay::emails.sepay-topup-success', ['amount' => $this->sePayWebhookData->transferAmount])
             )
-            ->action(__('View TopUp History'), url('/user/billing'))
+            ->action(__('View TopUp History'), $this->topupHistoryLink ?: url('/user/billing'))
             ->line(__('Thank you for using our service!'));
     }
 
