@@ -172,7 +172,7 @@ Bạn có thể hỗ trợ nhà phát triển gói này bằng cách sử dụng
 
 -   Thuê tôi 👉 [Facebook](https://www.facebook.com/nguyentranchung.b3) | [Telegram](https://t.me/nguyentranchung)
 -   [FlashPanel: Effortless Server Management](https://flashpanel.io)
--   [FlashShop: Nền tảng mua bán sản phẩm số #1 tại Việt Nam](https://flashshop.io)
+-   [FcodeShare: Get link Fshare tiết kiệm](https://fcodeshare.com)
 
 ## Changelog
 
