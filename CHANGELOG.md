@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-sepay` will be documented in this file.
 
+## laravel 12 - 2025-02-26
+
+**Full Changelog**: https://github.com/sepayvn/laravel-sepay/compare/v1.2.1...v1.2.2
+
 ## dynamic topup history link - 2025-02-05
 
 ### What's Changed
