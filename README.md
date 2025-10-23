@@ -121,7 +121,7 @@ class SePayWebhookListener
 
 1. Truy cập [SePay Webhooks](https://my.sepay.vn/webhooks)
 2. Bấm nút `Thêm Webhook` ở góc trên bên phải
-3. Các cần điền thì bạn hãy điền, riêng các mục sau cần lưu ý
+3. Các mục cần điền thì bạn hãy điền, riêng các mục sau cần lưu ý
 
     ![](<images/Screenshot 2024-05-27 at 18.50.00.png>)
 
