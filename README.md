@@ -1,8 +1,12 @@
 # Laravel Package cho SePay - Giải pháp tự động hóa cho thanh toán chuyển khoản ngân hàng
 
-## Installation
+## Đăng ký tài khoản
 
-You can install the package via composer:
+[Đăng ký tài khoản](https://sepay.vn?utm_source=INV&utm_medium=RFTRA&utm_campaign=D813AE64) tại SePay!
+
+## Cài đặt
+
+Bạn có thể cài đặt package qua composer:
 
 ```bash
 composer require sepayvn/laravel-sepay
@@ -14,20 +18,20 @@ Phiên bản dành cho Laravel 7, 8 và PHP 7.4 trở lên
 composer require "sepayvn/laravel-sepay:dev-lite"
 ```
 
-You can publish and run the migrations with:
+Publish và chạy migrations:
 
 ```bash
 php artisan vendor:publish --tag="sepay-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
+Publish file config:
 
 ```bash
 php artisan vendor:publish --tag="sepay-config"
 ```
 
-This is the contents of the published config file:
+Nội dung của file config sau khi publish:
 
 ```php
 return [
@@ -36,13 +40,13 @@ return [
 ];
 ```
 
-Optionally, you can publish the views using
+Tùy chọn, bạn có thể publish views:
 
 ```bash
 php artisan vendor:publish --tag="sepay-views"
 ```
 
-## Usage
+## Sử dụng
 
 Tạo SePayWebhookListener
 
@@ -101,7 +105,7 @@ class SePayWebhookListener
         ];
     ```
 
--   Đối với Laravel 11, `SePayWebhookListener` đặt ở trong thư mục app/Listeners thì Laravel
+-   Đối với phiên bản Laravel 11 trở lên, `SePayWebhookListener` đặt ở trong thư mục app/Listeners thì Laravel
     sẽ tự động gắn với `SePayWebhookEvent` bạn không cần phải đăng ký với Provider, tránh bị gọi 2 lần.
 
     Nếu bạn kiểm tra thấy `SePayWebhookListener` chưa lắng nghe `SePayWebhookEvent` thì bạn có thể làm như sau:
@@ -160,7 +164,7 @@ curl --location 'https://domain.com/api/sepay/webhook' \
 }'
 ```
 
-## Testing
+## Kiểm thử
 
 ```bash
 composer test
@@ -174,23 +178,23 @@ Bạn có thể hỗ trợ nhà phát triển gói này bằng cách sử dụng
 -   [FlashPanel: Effortless Server Management](https://flashpanel.io)
 -   [FcodeShare: Get link Fshare tiết kiệm](https://fcodeshare.com)
 
-## Changelog
+## Lịch sử thay đổi
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Vui lòng xem [CHANGELOG](CHANGELOG.md) để biết thêm thông tin về các thay đổi gần đây.
 
-## Contributing
+## Đóng góp
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Vui lòng xem [CONTRIBUTING](CONTRIBUTING.md) để biết chi tiết.
 
-## Security Vulnerabilities
+## Bảo mật
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+Vui lòng xem [chính sách bảo mật](../../security/policy) để biết cách báo cáo lỗ hổng bảo mật.
 
-## Credits
+## Tác giả
 
 -   [SePay](https://github.com/sepayvn)
--   [All Contributors](../../contributors)
+-   [Tất cả những người đóng góp](../../contributors)
 
-## License
+## Giấy phép
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+Giấy phép MIT. Vui lòng xem [License File](LICENSE.md) để biết thêm thông tin.
