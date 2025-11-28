@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|SePayTransaction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SePayTransaction query()
  *
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class SePayTransaction extends Model
 {
