@@ -12,14 +12,95 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        php: [8.2, 8.1]
-        laravel: [10.*]
-        stability: [prefer-lowest, prefer-stable]
         include:
-          - laravel: 10.*
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 10.*
             testbench: 8.*
             carbon: ^2.63
+            pest: ^2.33.2 <2.33.3
+            pest_laravel: ^2.0
+            pest_arch: ^2.0
+            collision: ^7.8
+            stability: prefer-lowest
+            test_command: vendor/bin/pest --ci
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 10.*
+            testbench: 8.*
+            carbon: ^2.63
+            pest: ^2.33.2 <2.33.3
+            pest_laravel: ^2.0
+            pest_arch: ^2.0
+            collision: ^7.8
+            stability: prefer-stable
+            test_command: vendor/bin/pest --ci
+          - os: ubuntu-latest
+            php: 8.1
+            laravel: 10.*
+            testbench: 8.*
+            carbon: ^2.63
+            pest: ^2.33.2 <2.33.3
+            pest_laravel: ^2.0
+            pest_arch: ^2.0
+            collision: ^7.8
+            stability: prefer-lowest
+            test_command: vendor/bin/pest --ci
+          - os: ubuntu-latest
+            php: 8.1
+            laravel: 10.*
+            testbench: 8.*
+            carbon: ^2.63
+            pest: ^2.33.2 <2.33.3
+            pest_laravel: ^2.0
+            pest_arch: ^2.0
+            collision: ^7.8
+            stability: prefer-stable
+            test_command: vendor/bin/pest --ci
+          - os: ubuntu-latest
+            php: 8.1
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            collision: ^6.4
+            stability: prefer-lowest
+            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.1
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            collision: ^6.4
+            stability: prefer-stable
+            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.0
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            collision: ^6.4
+            stability: prefer-lowest
+            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.0
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            collision: ^6.4
+            stability: prefer-stable
+            test_command: vendor/bin/pest --ci tests/ExampleTest.php
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -41,11 +122,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" --dev --no-interaction --no-update
+          if [ "${{ matrix.pest_arch }}" = "none" ]; then
+            composer remove pestphp/pest-plugin-arch --dev --no-interaction --no-update
+          fi
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" "nunomaduro/collision:${{ matrix.collision }}" "pestphp/pest:${{ matrix.pest }}" "pestphp/pest-plugin-laravel:${{ matrix.pest_laravel }}" --dev --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-security-blocking
 
       - name: List Installed Dependencies
         run: composer show -D
 
       - name: Execute tests
-        run: vendor/bin/pest --ci
+        run: ${{ matrix.test_command }}
