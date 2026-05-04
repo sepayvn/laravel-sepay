@@ -332,7 +332,9 @@ jobs:
           if [ "${{ matrix.pest_arch }}" != "none" ]; then
             composer require "pestphp/pest-plugin-arch:${{ matrix.pest_arch }}" --dev --no-interaction --no-update
           fi
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-security-blocking
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-security-blocking --no-scripts
+          composer dump-autoload --no-interaction --no-scripts
+          perl -0pi -e 's#\n    <coverage>.*?</coverage>##s' phpunit.xml.dist
 
       - name: List Installed Dependencies
         run: composer show -D
