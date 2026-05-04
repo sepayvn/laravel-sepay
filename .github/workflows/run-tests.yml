@@ -29,7 +29,7 @@ jobs:
             pest_laravel: ^1.4
             pest_arch: none
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+            test_command: vendor/bin/pest tests/ExampleTest.php
           - os: ubuntu-latest
             php: 8.0
             laravel: 9.*
@@ -40,7 +40,7 @@ jobs:
             pest_laravel: ^1.4
             pest_arch: none
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+            test_command: vendor/bin/pest tests/ExampleTest.php
           - os: ubuntu-latest
             php: 8.1
             laravel: 9.*
@@ -51,7 +51,7 @@ jobs:
             pest_laravel: ^1.4
             pest_arch: none
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+            test_command: vendor/bin/pest tests/ExampleTest.php
           - os: ubuntu-latest
             php: 8.1
             laravel: 9.*
@@ -62,7 +62,7 @@ jobs:
             pest_laravel: ^1.4
             pest_arch: none
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+            test_command: vendor/bin/pest tests/ExampleTest.php
           - os: ubuntu-latest
             php: 8.2
             laravel: 9.*
@@ -73,7 +73,7 @@ jobs:
             pest_laravel: ^1.4
             pest_arch: none
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+            test_command: vendor/bin/pest tests/ExampleTest.php
           - os: ubuntu-latest
             php: 8.2
             laravel: 9.*
@@ -84,7 +84,7 @@ jobs:
             pest_laravel: ^1.4
             pest_arch: none
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci tests/ExampleTest.php
+            test_command: vendor/bin/pest tests/ExampleTest.php
           - os: ubuntu-latest
             php: 8.1
             laravel: 10.*
@@ -95,7 +95,7 @@ jobs:
             pest_laravel: ^2.0
             pest_arch: ^2.0
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.1
             laravel: 10.*
@@ -106,7 +106,7 @@ jobs:
             pest_laravel: ^2.0
             pest_arch: ^2.0
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.2
             laravel: 10.*
@@ -117,7 +117,7 @@ jobs:
             pest_laravel: ^2.0
             pest_arch: ^2.0
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.2
             laravel: 10.*
@@ -128,7 +128,7 @@ jobs:
             pest_laravel: ^2.0
             pest_arch: ^2.0
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.3
             laravel: 10.*
@@ -139,7 +139,7 @@ jobs:
             pest_laravel: ^2.0
             pest_arch: ^2.0
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.3
             laravel: 10.*
@@ -150,7 +150,7 @@ jobs:
             pest_laravel: ^2.0
             pest_arch: ^2.0
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.2
             laravel: 11.*
@@ -161,7 +161,7 @@ jobs:
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.2
             laravel: 11.*
@@ -172,7 +172,7 @@ jobs:
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.3
             laravel: 11.*
@@ -183,7 +183,7 @@ jobs:
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.4
             laravel: 11.*
@@ -194,7 +194,7 @@ jobs:
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.5
             laravel: 11.*
@@ -205,62 +205,62 @@ jobs:
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.2
             laravel: 12.*
             testbench: 10.*
-            carbon: ^2.72
+            carbon: ^3.8.4
             collision: ^8.9.1
             pest: ^3.8.2
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.2
             laravel: 12.*
             testbench: 10.*
-            carbon: ^2.72
+            carbon: ^3.8.4
             collision: ^8.9.1
             pest: ^3.8.2
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.3
             laravel: 12.*
             testbench: 10.*
-            carbon: ^2.72
+            carbon: ^3.8.4
             collision: ^8.9.1
             pest: ^3.8.2
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.4
             laravel: 12.*
             testbench: 10.*
-            carbon: ^2.72
+            carbon: ^3.8.4
             collision: ^8.9.1
             pest: ^3.8.2
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.5
             laravel: 12.*
             testbench: 10.*
-            carbon: ^2.72
+            carbon: ^3.8.4
             collision: ^8.9.1
             pest: ^3.8.2
             pest_laravel: ^3.2
             pest_arch: ^3.1
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.3
             laravel: 13.*
@@ -271,7 +271,7 @@ jobs:
             pest_laravel: ^4.1
             pest_arch: ^4.0
             stability: prefer-lowest
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.3
             laravel: 13.*
@@ -282,7 +282,7 @@ jobs:
             pest_laravel: ^4.1
             pest_arch: ^4.0
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.4
             laravel: 13.*
@@ -293,7 +293,7 @@ jobs:
             pest_laravel: ^4.1
             pest_arch: ^4.0
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
           - os: ubuntu-latest
             php: 8.5
             laravel: 13.*
@@ -304,7 +304,7 @@ jobs:
             pest_laravel: ^4.1
             pest_arch: ^4.0
             stability: prefer-stable
-            test_command: vendor/bin/pest --ci
+            test_command: vendor/bin/pest
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
