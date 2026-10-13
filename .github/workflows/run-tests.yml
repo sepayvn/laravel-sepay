@@ -10,40 +10,301 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        php: [8.2, 8.1]
-        laravel: [10.*]
-        stability: [prefer-lowest, prefer-stable]
         include:
-          - laravel: 10.*
+          # Skipped as incompatible:
+          # - Laravel 9 on PHP 8.3, 8.4, 8.5: Laravel 9 test stack uses PHPUnit 9/Pest 1.
+          # - Laravel 10 on PHP 8.0: Laravel 10 requires PHP 8.1+.
+          # - Laravel 10 on PHP 8.4, 8.5: Pest 2/Paratest for Laravel 10 does not support PHP 8.4+.
+          # - Laravel 11 and 12 on PHP 8.0, 8.1: Laravel 11/12 test stacks require PHP 8.2+.
+          # - Laravel 13 on PHP 8.0, 8.1, 8.2: Laravel 13/Testbench 11 require PHP 8.3+.
+          - os: ubuntu-latest
+            php: 8.0
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            collision: ^6.4
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            stability: prefer-lowest
+            test_command: vendor/bin/pest tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.0
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            collision: ^6.4
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            stability: prefer-stable
+            test_command: vendor/bin/pest tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.1
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            collision: ^6.4
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            stability: prefer-lowest
+            test_command: vendor/bin/pest tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.1
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            collision: ^6.4
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            stability: prefer-stable
+            test_command: vendor/bin/pest tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            collision: ^6.4
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            stability: prefer-lowest
+            test_command: vendor/bin/pest tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 9.*
+            testbench: 7.*
+            carbon: ^2.63
+            collision: ^6.4
+            pest: ^1.23
+            pest_laravel: ^1.4
+            pest_arch: none
+            stability: prefer-stable
+            test_command: vendor/bin/pest tests/ExampleTest.php
+          - os: ubuntu-latest
+            php: 8.1
+            laravel: 10.*
             testbench: 8.*
             carbon: ^2.63
-          - php: 8.3
-            os: ubuntu-latest
-            laravel: 13.*
-            testbench: 11.*
-            carbon: ^3.10
+            collision: ^7.11
+            pest: ^2.33.2 <2.33.3
+            pest_laravel: ^2.0
+            pest_arch: ^2.0
             stability: prefer-lowest
-          - php: 8.4
-            os: ubuntu-latest
-            laravel: 13.*
-            testbench: 11.*
-            carbon: ^3.10
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.1
+            laravel: 10.*
+            testbench: 8.*
+            carbon: ^2.63
+            collision: ^7.11
+            pest: ^2.35.1
+            pest_laravel: ^2.4
+            pest_arch: ^2.7
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 10.*
+            testbench: 8.*
+            carbon: ^2.63
+            collision: ^7.11
+            pest: ^2.33.2 <2.33.3
+            pest_laravel: ^2.0
+            pest_arch: ^2.0
             stability: prefer-lowest
-          - php: 8.3
-            os: ubuntu-latest
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 10.*
+            testbench: 8.*
+            carbon: ^2.63
+            collision: ^7.11
+            pest: ^2.36.1
+            pest_laravel: ^2.4
+            pest_arch: ^2.7
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.3
+            laravel: 10.*
+            testbench: 8.*
+            carbon: ^2.63
+            collision: ^7.11
+            pest: ^2.33.2 <2.33.3
+            pest_laravel: ^2.0
+            pest_arch: ^2.0
+            stability: prefer-lowest
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.3
+            laravel: 10.*
+            testbench: 8.*
+            carbon: ^2.63
+            collision: ^7.11
+            pest: ^2.36.1
+            pest_laravel: ^2.4
+            pest_arch: ^2.7
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 11.*
+            testbench: 9.*
+            carbon: ^2.72
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-lowest
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 11.*
+            testbench: 9.*
+            carbon: ^2.72
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.3
+            laravel: 11.*
+            testbench: 9.*
+            carbon: ^2.72
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.4
+            laravel: 11.*
+            testbench: 9.*
+            carbon: ^2.72
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.5
+            laravel: 11.*
+            testbench: 9.*
+            carbon: ^2.72
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 12.*
+            testbench: 10.*
+            carbon: ^3.8.4
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-lowest
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.2
+            laravel: 12.*
+            testbench: 10.*
+            carbon: ^3.8.4
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.3
+            laravel: 12.*
+            testbench: 10.*
+            carbon: ^3.8.4
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.4
+            laravel: 12.*
+            testbench: 10.*
+            carbon: ^3.8.4
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.5
+            laravel: 12.*
+            testbench: 10.*
+            carbon: ^3.8.4
+            collision: ^8.9.1
+            pest: ^3.8.6
+            pest_laravel: ^3.2
+            pest_arch: ^3.1.1
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.3
             laravel: 13.*
             testbench: 11.*
-            carbon: ^3.10
-            stability: prefer-stable
-          - php: 8.4
-            os: ubuntu-latest
+            carbon: ^3.8
+            collision: ^8.9.4
+            pest: ^4.7.0
+            pest_laravel: ^4.1
+            pest_arch: ^4.0.2
+            stability: prefer-lowest
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.3
             laravel: 13.*
             testbench: 11.*
-            carbon: ^3.10
+            carbon: ^3.8
+            collision: ^8.9.4
+            pest: ^4.7.0
+            pest_laravel: ^4.1
+            pest_arch: ^4.0.2
             stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.4
+            laravel: 13.*
+            testbench: 11.*
+            carbon: ^3.8
+            collision: ^8.9.4
+            pest: ^4.7.0
+            pest_laravel: ^4.1
+            pest_arch: ^4.0.2
+            stability: prefer-stable
+            test_command: vendor/bin/pest
+          - os: ubuntu-latest
+            php: 8.5
+            laravel: 13.*
+            testbench: 11.*
+            carbon: ^3.8
+            collision: ^8.9.4
+            pest: ^4.7.0
+            pest_laravel: ^4.1
+            pest_arch: ^4.0.2
+            stability: prefer-stable
+            test_command: vendor/bin/pest
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -63,24 +324,22 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: Prepare Laravel 13 test dependencies
-        if: matrix.laravel == '13.*'
-        run: |
-          composer remove nunomaduro/larastan --dev --no-interaction --no-update
-          composer require "nunomaduro/collision:^8.9" "pestphp/pest:^4.4" "pestphp/pest-plugin-arch:^4.0" "pestphp/pest-plugin-laravel:^4.1" --dev --no-interaction --no-update
-
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+          composer remove pestphp/pest-plugin-arch --dev --no-interaction --no-update
+          composer remove nunomaduro/larastan --dev --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" "nunomaduro/collision:${{ matrix.collision }}" "pestphp/pest:${{ matrix.pest }}" "pestphp/pest-plugin-laravel:${{ matrix.pest_laravel }}" --dev --no-interaction --no-update
+          if [ "${{ matrix.pest_arch }}" != "none" ]; then
+            composer require "pestphp/pest-plugin-arch:${{ matrix.pest_arch }}" --dev --no-interaction --no-update
+          fi
+          # The matrix intentionally resolves old Laravel/PHP test stacks, so keep
+          # Composer from blocking historical dependency versions during coverage.
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-security-blocking --no-scripts
+          composer dump-autoload --no-interaction --no-scripts
+          perl -0pi -e 's#\n    <coverage>.*?</coverage>##s' phpunit.xml.dist
 
       - name: List Installed Dependencies
         run: composer show -D
 
       - name: Execute tests
-        if: matrix.laravel != '13.*'
-        run: vendor/bin/pest --ci
-
-      - name: Execute Laravel 13 tests
-        if: matrix.laravel == '13.*'
-        run: vendor/bin/pest --no-coverage
+        run: ${{ matrix.test_command }}
